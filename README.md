@@ -6,19 +6,36 @@
 An intelligent, self-improving development workflow that adapts to your project's complexity and learns from your patterns. Built for AI coding assistants like Cline, Roo, Cursor, and Claude.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#%EF%B8%8F-supported-ai-tools)
+[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#setup)
 
 ## ⚡ Quick Start
 
-1. **Download and run setup**:
-   ```bash
-   curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.sh | bash
-   ```
+**Option 1: Automatic Setup (Recommended)**
+```bash
+# Unix/Linux/Mac
+curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py | python3
+
+# Windows PowerShell  
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py" -OutFile "morpheus-setup.py"; python morpheus-setup.py; Remove-Item morpheus-setup.py
+```
+
+**Option 2: Manual Download**
+```bash
+# Download setup script
+curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py
+python3 morpheus-setup.py  # or python morpheus-setup.py on Windows
+```
 
 2. **Create your project brief**:
    ```bash
-   # The setup script creates .morpheus/brief.md template
-   nano .morpheus/brief.md  # Describe what you want to build
+   # Unix/Linux/Mac
+   nano .morpheus/brief.md
+   
+   # Windows
+   notepad .morpheus/brief.md
+   
+   # Or use your preferred editor
+   code .morpheus/brief.md  # VS Code
    ```
 
 3. **Start coding with your AI assistant** - It will now use Morpheus Framework patterns!
@@ -131,10 +148,25 @@ A full e-commerce platform with product management, shopping cart, payment proce
 
 ## 🔧 Setup
 
-### Automatic Setup (Recommended)
+### Cross-Platform Automatic Setup (Recommended)
+
+**Unix/Linux/Mac:**
 ```bash
-# Interactive setup - choose your AI tool
-curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py | python3
+```
+
+**Windows PowerShell:**
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py" -OutFile "morpheus-setup.py"
+python morpheus-setup.py
+Remove-Item morpheus-setup.py
+```
+
+**Alternative (any platform):**
+```bash
+# Download first, then run
+curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py
+python3 morpheus-setup.py  # or just 'python' on Windows
 ```
 
 The setup script will:
@@ -146,8 +178,15 @@ The setup script will:
 
 ### Manual Setup
 1. **Download the rules file**:
+   
+   **Unix/Linux/Mac:**
    ```bash
    curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md
+   ```
+   
+   **Windows PowerShell:**
+   ```powershell
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md" -OutFile "morpheus-rules.md"
    ```
 
 2. **Place it in your AI tool's configuration**:
@@ -157,9 +196,25 @@ The setup script will:
    - **Claude Projects**: Copy content to project instructions
 
 3. **Create project structure**:
+   
+   **Unix/Linux/Mac:**
    ```bash
    mkdir -p .morpheus
    touch .morpheus/brief.md .morpheus/context.md
+   ```
+   
+   **Windows Command Prompt:**
+   ```cmd
+   mkdir .morpheus
+   type nul > .morpheus\brief.md
+   type nul > .morpheus\context.md
+   ```
+   
+   **Windows PowerShell:**
+   ```powershell
+   New-Item -ItemType Directory -Force -Path .morpheus
+   New-Item -ItemType File -Path .morpheus\brief.md
+   New-Item -ItemType File -Path .morpheus\context.md
    ```
 
 ## 🎯 Key Features
