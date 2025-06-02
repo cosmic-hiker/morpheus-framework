@@ -10,21 +10,24 @@ An intelligent, self-improving development workflow that adapts to your project'
 
 ## ⚡ Quick Start
 
-**Option 1: Automatic Setup (Recommended)**
+**Option 1: Clone and Setup**
 ```bash
-# Unix/Linux/Mac
-curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py | python3
+# Clone the repository
+git clone https://github.com/cosmic-hiker/morpheus-framework.git
+cd morpheus-framework
 
-# Windows PowerShell  
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py" -OutFile "morpheus-setup.py"; python morpheus-setup.py; Remove-Item morpheus-setup.py
-```
-
-**Option 2: Manual Download**
-```bash
-# Download setup script
-curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py
+# Run setup script
 python3 morpheus-setup.py  # or python morpheus-setup.py on Windows
+
+# Copy to your project directory
+cd /path/to/your/project
+# The script will guide you through configuration
 ```
+
+**Option 2: Download Files Manually**
+1. Download `morpheus-setup.py` and `morpheus-rules.md` from the repository
+2. Place them in your project directory
+3. Run: `python3 morpheus-setup.py` (or `python morpheus-setup.py` on Windows)
 
 2. **Create your project brief**:
    ```bash
@@ -148,46 +151,35 @@ A full e-commerce platform with product management, shopping cart, payment proce
 
 ## 🔧 Setup
 
-### Cross-Platform Automatic Setup (Recommended)
+### Repository-Based Setup (Recommended)
 
-**Unix/Linux/Mac:**
+**Step 1: Get the Framework**
 ```bash
-curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py | python3
+# Clone the repository
+git clone https://github.com/cosmic-hiker/morpheus-framework.git
+cd morpheus-framework
 ```
 
-**Windows PowerShell:**
-```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py" -OutFile "morpheus-setup.py"
+**Step 2: Run Setup**
+```bash
+# Unix/Linux/Mac
+python3 morpheus-setup.py
+
+# Windows
 python morpheus-setup.py
-Remove-Item morpheus-setup.py
 ```
 
-**Alternative (any platform):**
-```bash
-# Download first, then run
-curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py
-python3 morpheus-setup.py  # or just 'python' on Windows
-```
-
-The setup script will:
-1. Download Morpheus Framework rules
-2. Let you choose your AI tool (Cline, Roo, Cursor, Claude, etc.)
-3. Configure the rules in the correct location
-4. Create initial project structure
-5. Generate template files
+**Step 3: Follow Interactive Prompts**
+The script will:
+1. Let you choose your AI tool (Cline, Roo, Cursor, Claude, etc.)
+2. Configure the rules in the correct location
+3. Create initial project structure
+4. Generate template files
 
 ### Manual Setup
-1. **Download the rules file**:
-   
-   **Unix/Linux/Mac:**
-   ```bash
-   curl -O https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md
-   ```
-   
-   **Windows PowerShell:**
-   ```powershell
-   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md" -OutFile "morpheus-rules.md"
-   ```
+1. **Download the files**:
+   - Download `morpheus-rules.md` from the repository
+   - Save it to your project directory
 
 2. **Place it in your AI tool's configuration**:
    - **Cline**: Copy to `.clinerules/morpheus-rules.md`

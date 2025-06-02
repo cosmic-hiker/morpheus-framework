@@ -7,8 +7,6 @@ Cross-platform setup for the Morpheus Framework AI development workflow
 
 import os
 import sys
-import urllib.request
-import urllib.error
 import shutil
 from pathlib import Path
 
@@ -43,20 +41,6 @@ def print_error(message):
 
 def print_info(message):
     print(f"{Colors.BLUE}ℹ️  {message}{Colors.RESET}")
-
-def download_file(url, filename):
-    """Download a file from URL with error handling"""
-    try:
-        print_info(f"Downloading {filename}...")
-        urllib.request.urlretrieve(url, filename)
-        print_status(f"{filename} downloaded successfully")
-        return True
-    except urllib.error.URLError as e:
-        print_error(f"Failed to download {filename}: {e}")
-        return False
-    except Exception as e:
-        print_error(f"Unexpected error downloading {filename}: {e}")
-        return False
 
 def detect_git_repo():
     """Check if we're in a git repository"""
@@ -284,16 +268,22 @@ def main():
     print("==========================")
     print()
     
-    # Detect git repository
-    detect_git_repo()
-    
-    # Download Morpheus rules file
-    rules_url = "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md"
+    # Check if we have the rules file locally
     rules_file = "morpheus-rules.md"
     
-    if not download_file(rules_url, rules_file):
-        print_error("Cannot continue without rules file")
+    if not Path(rules_file).exists():
+        print_error(f"Cannot find {rules_file} in the current directory")
+        print_info("Please ensure you have:")
+        print("  1. Cloned the morpheus-framework repository, or")
+        print("  2. Downloaded morpheus-rules.md to this directory")
+        print()
+        print("You can get the files from: https://github.com/cosmic-hiker/morpheus-framework")
         sys.exit(1)
+    
+    print_status(f"Found {rules_file}")
+    
+    # Detect git repository
+    detect_git_repo()
     
     # Interactive AI tool selection and configuration
     choice = get_ai_tool_choice()
@@ -312,13 +302,6 @@ def main():
     
     # Create .gitignore
     create_gitignore()
-    
-    # Clean up downloaded rules file from project root
-    try:
-        os.remove(rules_file)
-        print_status("Cleaned up temporary files")
-    except OSError:
-        print_warning("Could not clean up temporary files")
     
     # Success message
     print()
