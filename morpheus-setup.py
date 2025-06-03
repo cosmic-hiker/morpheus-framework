@@ -145,23 +145,32 @@ def configure_ai_tool(choice, rules_file):
         print_warning("Skipping tool configuration")
         print("You can configure your AI tool later by copying morpheus-rules.md to the appropriate location")
         return "Skipped", False
+    
+    # Fallback case (shouldn't reach here, but just in case)
+    return "Unknown", False
 
 def should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
     """Ask user if they want to clean up the rules file from project root"""
     # Only offer cleanup if:
     # 1. Rules were successfully copied to AI tool config
-    # 2. The rules file exists in current directory (not framework directory)
+    # 2. The rules file exists in current directory
     # 3. User didn't choose manual/skip options
     
     if not rules_copied or ai_tool_configured in ["Manual", "Skipped"]:
         return False
     
-    # Check if this looks like a user's project directory (not the framework directory)
-    if Path("morpheus-setup.py").exists():
-        # We're likely in the framework directory, don't clean up
+    if not Path(rules_file).exists():
         return False
     
-    if not Path(rules_file).exists():
+    # Check if this looks like the framework directory 
+    # Look for multiple framework-specific files together
+    framework_indicators = [
+        Path("README.md").exists() and Path("morpheus-setup.py").exists(),
+        Path(".git").exists() and "morpheus-framework" in str(Path.cwd())
+    ]
+    
+    if any(framework_indicators):
+        print_info("Detected framework directory - keeping rules file for reference")
         return False
     
     print()
@@ -169,7 +178,7 @@ def should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
     
     while True:
         try:
-            response = input("Would you like to remove it from the project root? (y/N): ").strip().lower()
+            response = input("Would you like to remove it from the project root to keep things tidy? (y/N): ").strip().lower()
             if response in ['y', 'yes']:
                 return True
             elif response in ['n', 'no', '']:
