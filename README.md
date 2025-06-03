@@ -206,7 +206,7 @@ The script will guide you through configuration.
 - **🔧 Tool Agnostic**: Works with any AI coding assistant.
 - **📈 Self-Improving**: Learns from your patterns, suggests process improvements, and proactively reflects on persistent challenges.
 
-## 🛠️ Supported AI Tools {#supported-ai-tools}
+## 🛠️ Supported AI Tools
 
 | Tool | Configuration Location |
 |------|----------------------|
