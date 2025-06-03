@@ -6,7 +6,7 @@
 An intelligent, self-improving development workflow that adapts to your project's complexity and learns from your patterns. Built for AI coding assistants like Cline, Roo, Cursor, and Claude.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#supported-ai-tools)
+[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#%EF%B8%8F-supported-ai-tools)
 
 ## ⚡ Quick Start: One-Liner Setup
 
