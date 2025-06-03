@@ -100,6 +100,8 @@ def configure_ai_tool(choice, rules_file):
         }
     }
     
+    rules_copied = False
+    
     if choice in tool_configs:
         config = tool_configs[choice]
         print_info(f"Configuring for {config['name']}...")
@@ -115,7 +117,8 @@ def configure_ai_tool(choice, rules_file):
         dest_file = config_dir / config['file']
         shutil.copy2(rules_file, dest_file)
         print_status(f"{config['name']} configuration complete")
-        return config['name']
+        rules_copied = True
+        return config['name'], rules_copied
         
     elif choice == '4':
         print_info("For Claude Projects:")
@@ -124,7 +127,7 @@ def configure_ai_tool(choice, rules_file):
         print("3. Copy the content from morpheus-rules.md into 'Project instructions'")
         print()
         print_warning("Manual configuration required for Claude Projects")
-        return "Claude Projects (manual setup required)"
+        return "Claude Projects (manual setup required)", False
         
     elif choice == '5':
         print()
@@ -136,12 +139,46 @@ def configure_ai_tool(choice, rules_file):
         print("  • Claude Projects: Copy content to project instructions")
         print("  • Other tools: Check your tool's documentation for rules/config location")
         print()
-        return "Manual"
+        return "Manual", False
         
     elif choice == '6':
         print_warning("Skipping tool configuration")
         print("You can configure your AI tool later by copying morpheus-rules.md to the appropriate location")
-        return "Skipped"
+        return "Skipped", False
+
+def should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
+    """Ask user if they want to clean up the rules file from project root"""
+    # Only offer cleanup if:
+    # 1. Rules were successfully copied to AI tool config
+    # 2. The rules file exists in current directory (not framework directory)
+    # 3. User didn't choose manual/skip options
+    
+    if not rules_copied or ai_tool_configured in ["Manual", "Skipped"]:
+        return False
+    
+    # Check if this looks like a user's project directory (not the framework directory)
+    if Path("morpheus-setup.py").exists():
+        # We're likely in the framework directory, don't clean up
+        return False
+    
+    if not Path(rules_file).exists():
+        return False
+    
+    print()
+    print_info(f"The rules file '{rules_file}' has been copied to your AI tool's configuration.")
+    
+    while True:
+        try:
+            response = input("Would you like to remove it from the project root? (y/N): ").strip().lower()
+            if response in ['y', 'yes']:
+                return True
+            elif response in ['n', 'no', '']:
+                return False
+            else:
+                print_warning("Please enter 'y' for yes or 'n' for no")
+        except (KeyboardInterrupt, EOFError):
+            print()
+            return False
 
 def create_brief_template():
     """Create the brief.md template"""
