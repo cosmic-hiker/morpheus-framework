@@ -100,8 +100,6 @@ def configure_ai_tool(choice, rules_file):
         }
     }
     
-    rules_copied = False
-    
     if choice in tool_configs:
         config = tool_configs[choice]
         print_info(f"Configuring for {config['name']}...")
@@ -117,8 +115,7 @@ def configure_ai_tool(choice, rules_file):
         dest_file = config_dir / config['file']
         shutil.copy2(rules_file, dest_file)
         print_status(f"{config['name']} configuration complete")
-        rules_copied = True
-        return config['name'], rules_copied
+        return config['name'], True  # Return tuple: (tool_name, rules_copied)
         
     elif choice == '4':
         print_info("For Claude Projects:")
@@ -157,9 +154,11 @@ def should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
     # 3. User didn't choose manual/skip options
     
     if not rules_copied or ai_tool_configured in ["Manual", "Skipped"]:
+        print_info(f"DEBUG: Skipping cleanup - copied: {rules_copied}, tool: {ai_tool_configured}")
         return False
     
     if not Path(rules_file).exists():
+        print_info(f"DEBUG: Rules file {rules_file} doesn't exist")
         return False
     
     # Check if this looks like the framework directory 
@@ -333,9 +332,11 @@ def main():
     
     # Interactive AI tool selection and configuration
     choice = get_ai_tool_choice()
-    ai_tool_configured = configure_ai_tool(choice, rules_file)
+    ai_tool_configured, rules_copied = configure_ai_tool(choice, rules_file)
     
-    # Create project structure
+    print_info(f"DEBUG: Tool configured: '{ai_tool_configured}', Rules copied: {rules_copied}")
+    
+    # Set up project structure
     print_info("Setting up project structure...")
     
     # Create .morpheus directory
@@ -348,6 +349,17 @@ def main():
     
     # Create .gitignore
     create_gitignore()
+    
+    # Ask about cleaning up rules file
+    print_info(f"DEBUG: Checking cleanup for tool: '{ai_tool_configured}', copied: {rules_copied}")
+    if should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
+        try:
+            os.remove(rules_file)
+            print_status(f"Removed {rules_file} from project root")
+        except OSError as e:
+            print_warning(f"Could not remove {rules_file}: {e}")
+    else:
+        print_info("DEBUG: Cleanup was not offered or declined")
     
     # Success message
     print()
