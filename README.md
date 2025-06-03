@@ -6,42 +6,29 @@
 An intelligent, self-improving development workflow that adapts to your project's complexity and learns from your patterns. Built for AI coding assistants like Cline, Roo, Cursor, and Claude.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#setup)
+[![AI Tools](https://img.shields.io/badge/AI%20Tools-Cline%20%7C%20Roo%20%7C%20Cursor%20%7C%20Claude-green.svg)](#supported-ai-tools)
 
-## ⚡ Quick Start
+## ⚡ Quick Start: One-Liner Setup
 
-**Option 1: Clone and Setup**
+The easiest way to get started is to run the setup script directly in your project directory. The script will download `morpheus-rules.md` if needed.
+
+**For Linux/macOS (bash/zsh):**
+Open your terminal, navigate to your project's root directory, and run:
 ```bash
-# Clone the repository
-git clone https://github.com/cosmic-hiker/morpheus-framework.git
-cd morpheus-framework
-
-# Run setup script
-python3 morpheus-setup.py  # or python morpheus-setup.py on Windows
-
-# Copy to your project directory
-cd /path/to/your/project
-# The script will guide you through configuration
+curl -sSL https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py | python3
 ```
 
-**Option 2: Download Files Manually**
-1. Download `morpheus-setup.py` and `morpheus-rules.md` from the repository
-2. Place them in your project directory
-3. Run: `python3 morpheus-setup.py` (or `python morpheus-setup.py` on Windows)
+**For Windows (PowerShell):**
+Open PowerShell, navigate to your project's root directory, and run:
+```powershell
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-setup.py -OutFile morpheus-setup.py; python morpheus-setup.py; Remove-Item morpheus-setup.py
+```
+*(This command downloads the script, runs it with Python, and then removes the downloaded script file.)*
 
-2. **Create your project brief**:
-   ```bash
-   # Unix/Linux/Mac
-   nano .morpheus/brief.md
-   
-   # Windows
-   notepad .morpheus/brief.md
-   
-   # Or use your preferred editor
-   code .morpheus/brief.md  # VS Code
-   ```
-
-3. **Start coding with your AI assistant** - It will now use Morpheus Framework patterns!
+After running the setup script:
+1.  **Follow the interactive prompts** to configure Morpheus for your AI tool.
+2.  **Edit `.morpheus/brief.md`** to describe what you want to build.
+3.  **Start coding with your AI assistant** – It will now use Morpheus Framework patterns!
 
 ## 🧠 How It Works
 
@@ -149,45 +136,44 @@ A full e-commerce platform with product management, shopping cart, payment proce
 - Mobile-responsive design
 ```
 
-## 🔧 Setup
+## 🔧 Alternative Setup Methods
 
-### Repository-Based Setup (Recommended)
+While the one-liner setup is recommended, you can also use these methods:
 
-**Step 1: Get the Framework**
+### 1. Clone the Repository (for developers or to get all framework files)
 ```bash
 # Clone the repository
 git clone https://github.com/cosmic-hiker/morpheus-framework.git
-cd morpheus-framework
+cd morpheus-framework 
+
+# Navigate to your actual project directory
+# cd /path/to/your/project
+
+# Then run the setup script from the cloned location, or copy morpheus-setup.py 
+# and morpheus-rules.md to your project and run it there:
+python3 /path/to/cloned/morpheus-framework/morpheus-setup.py 
+# or if copied:
+# python3 morpheus-setup.py
 ```
+The script will guide you through configuration.
 
-**Step 2: Run Setup**
-```bash
-# Unix/Linux/Mac
-python3 morpheus-setup.py
-
-# Windows
-python morpheus-setup.py
-```
-
-**Step 3: Follow Interactive Prompts**
-The script will:
-1. Let you choose your AI tool (Cline, Roo, Cursor, Claude, etc.)
-2. Configure the rules in the correct location
-3. Create initial project structure
-4. Generate template files
-
-### Manual Setup
-1. **Download the files**:
-   - Download `morpheus-rules.md` from the repository
-   - Save it to your project directory
-
-2. **Place it in your AI tool's configuration**:
-   - **Cline**: Copy to `.clinerules/morpheus-rules.md`
-   - **Roo**: Copy to `.roo/rules/morpheus-rules.md`
-   - **Cursor**: Copy to `.cursor/rules/morpheus-rules.md`
-   - **Claude Projects**: Copy content to project instructions
-
-3. **Create project structure**:
+### 2. Manual Download and Setup
+1.  **Download Files**:
+    *   Download `morpheus-setup.py`
+    *   Download `morpheus-rules.md`
+    *   (Both available at `https://github.com/cosmic-hiker/morpheus-framework`)
+2.  **Place in Your Project**: Put both files in the root of your project directory.
+3.  **Run Setup Script**:
+    ```bash
+    python3 morpheus-setup.py # or python morpheus-setup.py on Windows
+    ```
+4.  **If not running the script, manually configure**:
+    *   **Place `morpheus-rules.md` in your AI tool's configuration directory**:
+        *   **Cline**: `.clinerules/morpheus-rules.md`
+        *   **Roo**: `.roo/rules/morpheus-rules.md`
+        *   **Cursor**: `.cursor/rules/morpheus-rules.md`
+        *   **Claude Projects**: Copy content of `morpheus-rules.md` into project instructions.
+    *   **Create project structure**:
    
    **Unix/Linux/Mac:**
    ```bash
@@ -214,10 +200,11 @@ The script will:
 - **📝 Natural Start**: Just describe what you want to build in `brief.md`
 - **🤖 Smart Assessment**: AI evaluates project complexity automatically
 - **🔄 Adaptive Structure**: Framework scales with your needs
-- **🛡️ Quality Built-in**: Security, testing, and performance standards
-- **📚 Memory Preserved**: Maintains context across AI sessions
-- **🔧 Tool Agnostic**: Works with any AI coding assistant
-- **📈 Self-Improving**: Learns from your patterns
+- **🛡️ Proactive Quality Standards**: Enforces security, testing, performance, and maintainability best practices (e.g., 500-line rule, refactoring prompts, idempotency).
+- **🗣️ Structured Communication**: Clear protocols for AI confidence levels, special triggers, and request handling.
+- **📚 Memory Preserved**: Maintains context across AI sessions with structured updates.
+- **🔧 Tool Agnostic**: Works with any AI coding assistant.
+- **📈 Self-Improving**: Learns from your patterns, suggests process improvements, and proactively reflects on persistent challenges.
 
 ## 🛠️ Supported AI Tools
 
@@ -269,19 +256,21 @@ display cards?
 
 ## 🏗️ Development Standards
 
-The framework enforces quality standards automatically:
+The framework enforces quality standards automatically, guided by `morpheus-rules.md`:
 
-### Code Quality
-- **500-line rule**: Max 500 lines per file (forces good modular design)
-- **Security-first**: Never hardcode credentials, validate all inputs
-- **Test-driven**: Write tests before implementation
-- **Performance-conscious**: Implement caching and efficient algorithms
+### Code Quality Highlights
+- **Maintainable Modularity**: E.g., Max 500 lines per file, with proactive refactoring suggestions for oversized or complex existing code.
+- **Security-First**: Never hardcode credentials, validate all inputs, be mindful of common vulnerabilities (XSS, SQLi, IDORs), and check dependency security.
+- **Test-Driven**: Write tests before implementation (happy path, edge cases, failures), considering unit, integration, and UI interaction tests as appropriate.
+- **Performance-Conscious**: Implement caching, efficient algorithms, and consider scalability.
+- **Idempotent Operations**: Strive for idempotency in scripts and operations where practical.
 
-### AI Behavior Standards
-- **Confidence transparency**: Always state confidence level
-- **Human collaboration**: Seek guidance when uncertain
-- **Context preservation**: Update documentation after changes
-- **Brief alignment**: Keep work aligned with project vision
+### AI Behavior Standards Highlights
+- **Confidence Transparency**: Always state confidence level and adapt behavior accordingly.
+- **Structured Request Handling**: Clarify vague requests effectively.
+- **Human Collaboration**: Seek guidance when uncertain or for critical decisions (architecture, security, performance).
+- **Context Preservation**: Update documentation (`context.md`, etc.) with structured, reviewable changes.
+- **Brief Alignment**: Keep work aligned with project vision and flag deviations or needs for brief updates.
 
 ### Quality Validation
 Before any significant implementation:
@@ -305,10 +294,10 @@ Keeps your project aligned with the original vision in `brief.md` while allowing
 
 ### Self-Improving Workflow
 The framework learns from your patterns:
-- Identifies effective collaboration patterns
-- Suggests process improvements
-- Adapts to your coding style and preferences
-- Evolves quality standards based on your projects
+- Identifies effective collaboration patterns.
+- Suggests process improvements and proactively reflects on persistent challenges.
+- Adapts to your coding style and preferences.
+- Evolves quality standards based on your projects (with human approval).
 
 ### Session Memory
 Maintains context across AI sessions:
@@ -336,10 +325,4 @@ MIT License - Use freely, contribute back improvements.
 
 ---
 
-**Ready to revolutionize your AI development workflow?**
-
-```bash
-curl -sSL https://github.com/cosmic-hiker/morpheus-framework/raw/main/morpheus-setup.sh | bash
-```
-
-Then create your `.morpheus/brief.md` and start building with enhanced AI collaboration!
+**Ready to revolutionize your AI development workflow?** Start with the [One-Liner Setup](#-quick-start-one-liner-setup) and create your `.morpheus/brief.md`!

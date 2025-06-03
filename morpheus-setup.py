@@ -9,8 +9,8 @@ import os
 import sys
 import shutil
 from pathlib import Path
-
-# Colors for cross-platform terminal output
+import urllib.request
+import ssl
 class Colors:
     if os.name == 'nt':  # Windows
         try:
@@ -312,27 +312,37 @@ def main():
     print("🔮 Morpheus Framework Setup")
     print("==========================")
     print()
-    
-    # Check if we have the rules file locally
-    rules_file = "morpheus-rules.md"
-    
-    if not Path(rules_file).exists():
-        print_error(f"Cannot find {rules_file} in the current directory")
-        print_info("Please ensure you have:")
-        print("  1. Cloned the morpheus-framework repository, or")
-        print("  2. Downloaded morpheus-rules.md to this directory")
-        print()
-        print("You can get the files from: https://github.com/cosmic-hiker/morpheus-framework")
-        sys.exit(1)
-    
-    print_status(f"Found {rules_file}")
-    
+
+    rules_file_name = "morpheus-rules.md"
+    rules_file_path = Path(rules_file_name)
+    rules_url = "https://raw.githubusercontent.com/cosmic-hiker/morpheus-framework/main/morpheus-rules.md"
+
+    if not rules_file_path.exists():
+        print_info(f"'{rules_file_name}' not found locally.")
+        print_info(f"Attempting to download from {rules_url}...")
+        try:
+            # Create a default SSL context (helps with some environments)
+            context = ssl.create_default_context()
+            context.check_hostname = False
+            context.verify_mode = ssl.CERT_NONE
+            
+            with urllib.request.urlopen(rules_url, context=context) as response, open(rules_file_path, 'wb') as out_file:
+                shutil.copyfileobj(response, out_file)
+            print_status(f"Successfully downloaded '{rules_file_name}'.")
+        except Exception as e:
+            print_error(f"Failed to download '{rules_file_name}': {e}")
+            print_info("Please manually download it from the repository and place it in the current directory.")
+            print_info("Repository: https://github.com/cosmic-hiker/morpheus-framework")
+            sys.exit(1)
+    else:
+        print_status(f"Found '{rules_file_name}' locally.")
+        
     # Detect git repository
     detect_git_repo()
     
     # Interactive AI tool selection and configuration
     choice = get_ai_tool_choice()
-    ai_tool_configured, rules_copied = configure_ai_tool(choice, rules_file)
+    ai_tool_configured, rules_copied = configure_ai_tool(choice, rules_file_name) # Use rules_file_name here
     
     print_info(f"DEBUG: Tool configured: '{ai_tool_configured}', Rules copied: {rules_copied}")
     
@@ -352,10 +362,10 @@ def main():
     
     # Ask about cleaning up rules file
     print_info(f"DEBUG: Checking cleanup for tool: '{ai_tool_configured}', copied: {rules_copied}")
-    if should_cleanup_rules_file(rules_file, ai_tool_configured, rules_copied):
+    if should_cleanup_rules_file(rules_file_path, ai_tool_configured, rules_copied): # Use rules_file_path
         try:
-            os.remove(rules_file)
-            print_status(f"Removed {rules_file} from project root")
+            os.remove(rules_file_path) # Use rules_file_path
+            print_status(f"Removed {rules_file_name} from project root") # Use rules_file_name for message
         except OSError as e:
             print_warning(f"Could not remove {rules_file}: {e}")
     else:
