@@ -440,8 +440,6 @@ Update .morpheus/ files when:
 
 ## Self-Improvement Mechanism
 
-## Self-Improvement Mechanism
-
 ### How It Works
 You have the capability to observe patterns and suggest workflow improvements, but you cannot implement changes without human approval. This creates a learning feedback loop.
 
