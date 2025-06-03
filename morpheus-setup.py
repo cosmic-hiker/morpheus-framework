@@ -367,7 +367,7 @@ def main():
             os.remove(rules_file_path) # Use rules_file_path
             print_status(f"Removed {rules_file_name} from project root") # Use rules_file_name for message
         except OSError as e:
-            print_warning(f"Could not remove {rules_file}: {e}")
+            print_warning(f"Could not remove {rules_file_name}: {e}") # Corrected variable here
     else:
         print_info("DEBUG: Cleanup was not offered or declined")
     
